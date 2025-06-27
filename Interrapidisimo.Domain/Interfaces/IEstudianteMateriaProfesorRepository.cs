@@ -2,10 +2,14 @@ using Interrapidisimo.Domain.Entities;
 
 namespace Interrapidisimo.Domain.Interfaces
 {
-    public interface IEstudianteMateriaProfesorRepository : IGenericRepository<EstudianteMateriaProfesor>
+    public interface IEstudianteMateriaProfesorRepository
     {
-        Task<IEnumerable<EstudianteMateriaProfesor>> GetInscripcionesPorEstudianteAsync(int estudianteId);
-        Task<IEnumerable<EstudianteMateriaProfesor>> GetEstudiantesPorMateriaProfesorAsync(int materiaProfesorId);
+        Task<EstudianteMateriaProfesor> AddAsync(EstudianteMateriaProfesor inscripcion);
+        void Delete(EstudianteMateriaProfesor inscripcion);
+        Task<EstudianteMateriaProfesor?> GetInscripcionAsync(int estudianteId, int materiaId, int profesorId);
+        Task<bool> ExisteInscripcionAsync(int estudianteId, int materiaId, int profesorId);
+        Task<IEnumerable<EstudianteMateriaProfesor>> GetMateriasDelEstudianteAsync(int estudianteId);
+        Task<IEnumerable<EstudianteMateriaProfesor>> GetEstudiantesPorMateriaProfesorAsync(int materiaId, int profesorId);
         Task<bool> EstudianteTieneClaseConProfesorAsync(int estudianteId, int profesorId);
         Task<int> ContarMateriasDelEstudianteAsync(int estudianteId);
     }

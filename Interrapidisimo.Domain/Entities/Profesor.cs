@@ -11,6 +11,7 @@ namespace Interrapidisimo.Domain.Entities
         public string Especialidad { get; set; } = string.Empty;
         
         // Relaciones - Cada profesor dicta exactamente 2 materias
-        public virtual ICollection<MateriaProfesor> MateriasQueDicta { get; set; } = new List<MateriaProfesor>();
+        public virtual ICollection<MateriaProfesor> MateriaProfesor { get; set; } = new List<MateriaProfesor>();
+        public virtual ICollection<EstudianteMateriaProfesor> EstudianteMateriaProfesor { get; set; } = new List<EstudianteMateriaProfesor>();
     }
 }

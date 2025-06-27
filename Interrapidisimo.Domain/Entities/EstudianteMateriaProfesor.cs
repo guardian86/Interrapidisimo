@@ -8,8 +8,11 @@ namespace Interrapidisimo.Domain.Entities
         public int EstudianteId { get; set; }
         public virtual Estudiante Estudiante { get; set; } = null!;
         
-        public int MateriaProfesorId { get; set; }
-        public virtual MateriaProfesor MateriaProfesor { get; set; } = null!;
+        public int MateriaId { get; set; }
+        public virtual Materia Materia { get; set; } = null!;
+        
+        public int ProfesorId { get; set; }
+        public virtual Profesor Profesor { get; set; } = null!;
         
         public DateTime FechaInscripcion { get; set; }
         public string Estado { get; set; } = "Activo"; // Activo, Completado, Cancelado

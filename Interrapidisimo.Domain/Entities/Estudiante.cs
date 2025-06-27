@@ -13,6 +13,6 @@ namespace Interrapidisimo.Domain.Entities
         public int CreditosSeleccionados { get; set; } = 0;
         
         // Relaciones
-        public virtual ICollection<EstudianteMateriaProfesor> MateriasInscritas { get; set; } = new List<EstudianteMateriaProfesor>();
+        public virtual ICollection<EstudianteMateriaProfesor> EstudianteMateriaProfesor { get; set; } = new List<EstudianteMateriaProfesor>();
     }
 }

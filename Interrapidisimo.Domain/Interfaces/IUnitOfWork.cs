@@ -2,11 +2,11 @@ namespace Interrapidisimo.Domain.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IEstudianteRepository Estudiantes { get; }
-        IProfesorRepository Profesores { get; }
-        IMateriaRepository Materias { get; }
-        IMateriaProfesorRepository MateriasProfesores { get; }
-        IEstudianteMateriaProfesorRepository EstudiantesMateriasProfesores { get; }
+        IEstudianteRepository EstudianteRepository { get; }
+        IProfesorRepository ProfesorRepository { get; }
+        IMateriaRepository MateriaRepository { get; }
+        IMateriaProfesorRepository MateriaProfesorRepository { get; }
+        IEstudianteMateriaProfesorRepository EstudianteMateriaProfesorRepository { get; }
         
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync();
