@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen(c =>
 // CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("NuevaPolitica", app =>
+    options.AddPolicy("PoliticaCors", app =>
     {
         app.AllowAnyOrigin()
            .AllowAnyMethod()
@@ -66,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("NuevaPolitica");
+app.UseCors("PoliticaCors");
 
 app.UseHttpsRedirection();
 

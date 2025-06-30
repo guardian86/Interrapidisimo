@@ -10,7 +10,12 @@ namespace Interrapidisimo.Application.Mapping
         {
             // Estudiante mappings
             CreateMap<Estudiante, EstudianteDto>();
-            CreateMap<Estudiante, EstudianteListDto>();
+            
+            //CreateMap<Estudiante, EstudianteListDto>();
+            CreateMap<Estudiante, EstudianteListDto>()
+                .ForMember(dest => dest.NombreCompleto,
+                            opt => opt.MapFrom(src => $"{src.Nombre} {src.Apellido}"));
+
             CreateMap<Estudiante, EstudianteCompaneroDto>();
             CreateMap<EstudianteCreateDto, Estudiante>();
             CreateMap<EstudianteUpdateDto, Estudiante>();

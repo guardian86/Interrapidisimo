@@ -19,6 +19,10 @@ namespace Interrapidisimo.Application.Services
 
         public async Task<IEnumerable<EstudianteListDto>> GetAllAsync()
         {
+            var student = new Estudiante { Nombre = "andres", Apellido = "quintero" };
+            var dto = _mapper.Map<EstudianteListDto>(student);
+
+
             var estudiantes = await _unitOfWork.EstudianteRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<EstudianteListDto>>(estudiantes);
         }
