@@ -12,5 +12,7 @@ namespace Interrapidisimo.Domain.Interfaces
         Task<IEnumerable<EstudianteMateriaProfesor>> GetEstudiantesPorMateriaProfesorAsync(int materiaId, int profesorId);
         Task<bool> EstudianteTieneClaseConProfesorAsync(int estudianteId, int profesorId);
         Task<int> ContarMateriasDelEstudianteAsync(int estudianteId);
+        Task<IEnumerable<EstudianteMateriaProfesor>> GetMateriasPorEstudianteAsync(int estudianteId);
+        Task<IEnumerable<EstudianteMateriaProfesor>> GetProfesoresPorEstudianteAsync(int estudianteId);
     }
 }

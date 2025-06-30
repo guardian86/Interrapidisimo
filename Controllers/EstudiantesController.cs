@@ -49,7 +49,7 @@ public class EstudiantesController : ControllerBase
     /// <param name="estudianteDto">Datos del estudiante</param>
     /// <returns>Estudiante creado</returns>
     [HttpPost]
-    public async Task<ActionResult<EstudianteDto>> CreateEstudiante(EstudianteCreateDto estudianteDto)
+    public async Task<ActionResult<EstudianteDto>> CreateEstudiante([FromBody] EstudianteCreateDto estudianteDto)
     {
         if (!ModelState.IsValid)
         {
@@ -74,7 +74,7 @@ public class EstudiantesController : ControllerBase
     /// <param name="estudianteDto">Datos actualizados</param>
     /// <returns>Estudiante actualizado</returns>
     [HttpPut("{id}")]
-    public async Task<ActionResult<EstudianteDto>> UpdateEstudiante(int id, EstudianteUpdateDto estudianteDto)
+    public async Task<ActionResult<EstudianteDto>> UpdateEstudiante(int id, [FromBody] EstudianteUpdateDto estudianteDto)
     {
         if (!ModelState.IsValid)
         {

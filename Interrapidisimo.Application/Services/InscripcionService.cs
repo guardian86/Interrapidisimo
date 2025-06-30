@@ -38,6 +38,18 @@ namespace Interrapidisimo.Application.Services
             if (materiaProfesor == null)
                 throw new InvalidOperationException("The specified professor does not teach this subject");
 
+            // VALIDACIÓN: Máximo 3 materias por estudiante
+            var materiasActuales = await _unitOfWork.EstudianteMateriaProfesorRepository
+                .GetMateriasPorEstudianteAsync(inscripcionDto.EstudianteId);
+            if (materiasActuales.Count() >= 3)
+                throw new InvalidOperationException("Student cannot enroll in more than 3 subjects");
+
+            // VALIDACIÓN: No mismo profesor en diferentes materias
+            var profesoresDelEstudiante = await _unitOfWork.EstudianteMateriaProfesorRepository
+                .GetProfesoresPorEstudianteAsync(inscripcionDto.EstudianteId);
+            if (profesoresDelEstudiante.Any(p => p.ProfesorId == inscripcionDto.ProfesorId))
+                throw new InvalidOperationException("Student cannot have classes with the same professor in different subjects");
+
             // Verificar si ya está inscrito
             var existeInscripcion = await _unitOfWork.EstudianteMateriaProfesorRepository
                 .ExisteInscripcionAsync(inscripcionDto.EstudianteId, inscripcionDto.MateriaId, inscripcionDto.ProfesorId);

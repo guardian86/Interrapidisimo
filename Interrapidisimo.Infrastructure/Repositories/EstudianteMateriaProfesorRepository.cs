@@ -72,5 +72,21 @@ namespace Interrapidisimo.Infrastructure.Repositories
             return await _context.EstudianteMateriaProfesor
                 .CountAsync(emp => emp.EstudianteId == estudianteId);
         }
+
+        public async Task<IEnumerable<EstudianteMateriaProfesor>> GetMateriasPorEstudianteAsync(int estudianteId)
+        {
+            return await _context.EstudianteMateriaProfesor
+                .Include(emp => emp.Materia)
+                .Where(emp => emp.EstudianteId == estudianteId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<EstudianteMateriaProfesor>> GetProfesoresPorEstudianteAsync(int estudianteId)
+        {
+            return await _context.EstudianteMateriaProfesor
+                .Include(emp => emp.Profesor)
+                .Where(emp => emp.EstudianteId == estudianteId)
+                .ToListAsync();
+        }
     }
 }
