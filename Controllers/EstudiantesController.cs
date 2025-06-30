@@ -52,10 +52,8 @@ public class EstudiantesController : ControllerBase
     public async Task<ActionResult<EstudianteDto>> CreateEstudiante([FromBody] EstudianteCreateDto estudianteDto)
     {
         if (!ModelState.IsValid)
-        {
             return BadRequest(ModelState);
-        }
-
+        
         try
         {
             var estudiante = await _estudianteService.CreateAsync(estudianteDto);
