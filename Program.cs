@@ -56,7 +56,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await DataSeeder.SeedAsync(context);
+    //await DataSeeder.SeedAsync(context);
 }
 
 // Configure the HTTP request pipeline
