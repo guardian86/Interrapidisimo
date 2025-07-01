@@ -23,6 +23,9 @@ namespace Interrapidisimo.Application.Mapping
             // Profesor mappings
             CreateMap<Profesor, ProfesorDto>();
             CreateMap<Profesor, ProfesorListDto>();
+            CreateMap<Profesor, ProfesorDisponibleDto>()
+                .ForMember(dest => dest.ProfesorId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.NombreCompleto, opt => opt.MapFrom(src => $"{src.Nombre} {src.Apellido}"));
             CreateMap<ProfesorCreateDto, Profesor>();
             CreateMap<ProfesorUpdateDto, Profesor>();
 
