@@ -41,7 +41,7 @@ namespace Interrapidisimo.Application.Services
         {
             var materia = await _unitOfWork.MateriaRepository.GetByIdAsync(id);
             if (materia == null)
-                throw new KeyNotFoundException($"Materia with ID {id} not found");
+                throw new KeyNotFoundException($"Materia con id {id} no encontrada");
 
             _mapper.Map(materiaUpdateDto, materia);
             _unitOfWork.MateriaRepository.Update(materia);
@@ -63,7 +63,21 @@ namespace Interrapidisimo.Application.Services
         public async Task<IEnumerable<MateriasDisponiblesParaEstudianteDto>> GetMateriasDisponiblesParaEstudianteAsync(int estudianteId)
         {
             var materias = await _unitOfWork.MateriaRepository.GetMateriasDisponiblesParaEstudianteAsync(estudianteId);
-            return _mapper.Map<IEnumerable<MateriasDisponiblesParaEstudianteDto>>(materias);
+            var materiasDto = new List<MateriasDisponiblesParaEstudianteDto>();
+
+            foreach (var materia in materias)
+            {
+                var materiaDto = _mapper.Map<MateriasDisponiblesParaEstudianteDto>(materia);
+                
+                // Obtener profesores disponibles para esta materia
+                var materiaProfesores = await _unitOfWork.MateriaProfesorRepository.GetProfesoresPorMateriaAsync(materia.Id);
+                var profesores = materiaProfesores.Select(mp => mp.Profesor).ToList();
+                materiaDto.ProfesoresDisponibles = _mapper.Map<List<ProfesorDisponibleDto>>(profesores);
+                
+                materiasDto.Add(materiaDto);
+            }
+
+            return materiasDto;
         }
 
         public async Task<bool> ExisteMateriaAsync(int id)

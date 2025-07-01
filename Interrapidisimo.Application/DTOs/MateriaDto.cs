@@ -15,35 +15,35 @@ namespace Interrapidisimo.Application.DTOs
 
     public class MateriaCreateDto
     {
-        [Required(ErrorMessage = "El nombre es requerido")]
+        [Required(ErrorMessage = "El {0} es requerido")]
         [StringLength(150, ErrorMessage = "El nombre no puede exceder 150 caracteres")]
         public string Nombre { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El código es requerido")]
+        [Required(ErrorMessage = "El {0} es requerido")]
         [StringLength(10, ErrorMessage = "El código no puede exceder 10 caracteres")]
         public string Codigo { get; set; } = string.Empty;
 
-        [StringLength(500, ErrorMessage = "La descripción no puede exceder 500 caracteres")]
+        [StringLength(500, ErrorMessage = "La {0} no puede exceder 500 caracteres")]
         public string Descripcion { get; set; } = string.Empty;
 
-        [Range(1, 6, ErrorMessage = "Los créditos deben estar entre 1 y 6")]
+        [Range(1, 6, ErrorMessage = "Los {0} deben estar entre 1 y 6")]
         public int Creditos { get; set; } = 3;
     }
 
     public class MateriaUpdateDto
     {
-        [Required(ErrorMessage = "El nombre es requerido")]
+        [Required(ErrorMessage = "El {0} es requerido")]
         [StringLength(150, ErrorMessage = "El nombre no puede exceder 150 caracteres")]
         public string Nombre { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El código es requerido")]
+        [Required(ErrorMessage = "El {0} es requerido")]
         [StringLength(10, ErrorMessage = "El código no puede exceder 10 caracteres")]
         public string Codigo { get; set; } = string.Empty;
 
-        [StringLength(500, ErrorMessage = "La descripción no puede exceder 500 caracteres")]
+        [StringLength(500, ErrorMessage = "La {0} no puede exceder 500 caracteres")]
         public string Descripcion { get; set; } = string.Empty;
 
-        [Range(1, 6, ErrorMessage = "Los créditos deben estar entre 1 y 6")]
+        [Range(1, 6, ErrorMessage = "Los {0} deben estar entre 1 y 6")]
         public int Creditos { get; set; }
     }
 

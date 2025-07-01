@@ -41,7 +41,7 @@ namespace Interrapidisimo.Application.Services
         {
             var profesor = await _unitOfWork.ProfesorRepository.GetByIdAsync(id);
             if (profesor == null)
-                throw new KeyNotFoundException($"Profesor with ID {id} not found");
+                throw new KeyNotFoundException($"Profesor con Id {id} no encontrado");
 
             _mapper.Map(profesorUpdateDto, profesor);
             _unitOfWork.ProfesorRepository.Update(profesor);

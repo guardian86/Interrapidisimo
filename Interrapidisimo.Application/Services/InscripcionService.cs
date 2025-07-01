@@ -22,39 +22,39 @@ namespace Interrapidisimo.Application.Services
             // Validar que el estudiante, materia y profesor existen
             var estudiante = await _unitOfWork.EstudianteRepository.GetByIdAsync(inscripcionDto.EstudianteId);
             if (estudiante == null)
-                throw new KeyNotFoundException($"Estudiante with ID {inscripcionDto.EstudianteId} not found");
+                throw new KeyNotFoundException($"Estudiante con Id {inscripcionDto.EstudianteId} no encontrado");
 
             var materia = await _unitOfWork.MateriaRepository.GetByIdAsync(inscripcionDto.MateriaId);
             if (materia == null)
-                throw new KeyNotFoundException($"Materia with ID {inscripcionDto.MateriaId} not found");
+                throw new KeyNotFoundException($"Materia con Id {inscripcionDto.MateriaId} no encontrado");
 
             var profesor = await _unitOfWork.ProfesorRepository.GetByIdAsync(inscripcionDto.ProfesorId);
             if (profesor == null)
-                throw new KeyNotFoundException($"Profesor with ID {inscripcionDto.ProfesorId} not found");
+                throw new KeyNotFoundException($"Profesor con Id {inscripcionDto.ProfesorId} no encontrado");
 
             // Validar que la relación materia-profesor existe
             var materiaProfesor = await _unitOfWork.MateriaProfesorRepository
                 .GetMateriaProfesorAsync(inscripcionDto.MateriaId, inscripcionDto.ProfesorId);
             if (materiaProfesor == null)
-                throw new InvalidOperationException("The specified professor does not teach this subject");
+                throw new InvalidOperationException("El profesor especificado no enseña esta materia.");
 
             // VALIDACIÓN: Máximo 3 materias por estudiante
             var materiasActuales = await _unitOfWork.EstudianteMateriaProfesorRepository
                 .GetMateriasPorEstudianteAsync(inscripcionDto.EstudianteId);
             if (materiasActuales.Count() >= 3)
-                throw new InvalidOperationException("Student cannot enroll in more than 3 subjects");
+                throw new InvalidOperationException("El estudiante no puede inscribirse en más de 3 materias");
 
             // VALIDACIÓN: No mismo profesor en diferentes materias
             var profesoresDelEstudiante = await _unitOfWork.EstudianteMateriaProfesorRepository
                 .GetProfesoresPorEstudianteAsync(inscripcionDto.EstudianteId);
             if (profesoresDelEstudiante.Any(p => p.ProfesorId == inscripcionDto.ProfesorId))
-                throw new InvalidOperationException("Student cannot have classes with the same professor in different subjects");
+                throw new InvalidOperationException("El estudiante no puede tener clases con el mismo profesor en diferentes asignaturas.");
 
             // Verificar si ya está inscrito
             var existeInscripcion = await _unitOfWork.EstudianteMateriaProfesorRepository
                 .ExisteInscripcionAsync(inscripcionDto.EstudianteId, inscripcionDto.MateriaId, inscripcionDto.ProfesorId);
             if (existeInscripcion)
-                throw new InvalidOperationException("Student is already enrolled in this subject with this professor");
+                throw new InvalidOperationException("El estudiante ya está inscrito en esta asignatura con este profesor.");
 
             // Crear la inscripción
             var inscripcion = new EstudianteMateriaProfesor
@@ -75,7 +75,7 @@ namespace Interrapidisimo.Application.Services
                 ProfesorId = inscripcion.ProfesorId,
                 FechaInscripcion = inscripcion.FechaInscripcion,
                 Exitoso = true,
-                Mensaje = "Student successfully enrolled"
+                Mensaje = "El estudiante se inscribió con éxito"
             };
         }
 
@@ -126,15 +126,16 @@ namespace Interrapidisimo.Application.Services
             return !existeInscripcion;
         }
 
+
+        //reglas de negocio inscripcion
         public async Task<bool> EstudiantePuedeInscribirseAsync(int estudianteId)
         {
             // Verificar que el estudiante existe
             if (!await _unitOfWork.EstudianteRepository.ExistsAsync(estudianteId))
                 return false;
 
-            // Aquí se pueden agregar más reglas de negocio
-            // Por ejemplo, verificar límite de materias por semestre
-            
+
+
             return true;
         }
     }

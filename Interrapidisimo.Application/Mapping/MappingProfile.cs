@@ -30,7 +30,9 @@ namespace Interrapidisimo.Application.Mapping
             CreateMap<Materia, MateriaDto>();
             CreateMap<Materia, MateriaListDto>();
             CreateMap<Materia, MateriasDisponiblesParaEstudianteDto>()
+                .ForMember(dest => dest.MateriaId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.NombreMateria, opt => opt.MapFrom(src => src.Nombre))
+                .ForMember(dest => dest.CodigoMateria, opt => opt.MapFrom(src => src.Codigo))
                 .ForMember(dest => dest.CreditosMateria, opt => opt.MapFrom(src => src.Creditos));
             CreateMap<MateriaCreateDto, Materia>();
             CreateMap<MateriaUpdateDto, Materia>();
