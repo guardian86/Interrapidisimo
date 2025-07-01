@@ -45,7 +45,7 @@ namespace Interrapidisimo.Application.Services
         {
             var estudiante = await _unitOfWork.EstudianteRepository.GetByIdAsync(id);
             if (estudiante == null)
-                throw new KeyNotFoundException($"Estudiante with ID {id} not found");
+                throw new KeyNotFoundException($"Estudiante con Id {id} no encontrado");
 
             _mapper.Map(estudianteUpdateDto, estudiante);
             _unitOfWork.EstudianteRepository.Update(estudiante);
